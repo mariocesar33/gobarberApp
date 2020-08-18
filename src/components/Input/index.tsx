@@ -13,16 +13,16 @@ interface InputValueReference {
   value: string;
 }
 const Input: React.FC<InputPrps> = ({ name, icon, ...rest }) => {
-  const { registerField, defaultValue, fieldName, error } = useField(name);
-  const inputValueRef = useRef<InputValueReference>({ value: '' });
+  const inputElementRef = useRef(null);
+  const { registerField, defaultValue = '', fieldName, error } = useField(name);
+  const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
   
-
   useEffect(() => {
     registerField({
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
-    })
+    });
   }, [fieldName, registerField]);
   
   return (
